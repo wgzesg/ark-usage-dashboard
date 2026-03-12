@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARK Usage Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔥 ARK Usage Dashboard</h1>
+            <p>Track and visualize your ARK API usage with local data persistence</p>
+        </div>
+        
+        <div class="status-bar">
+            <div class="status-item">
+                <div class="status-dot" id="statusDot"></div>
+                <span id="statusText">Ready</span>
+            </div>
+            <div class="status-item">
+                <span id="lastUpdated">Last updated: Never</span>
+            </div>
+            <div class="status-item">
+                <span id="dataRange">Data range: --</span>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <label for="daysSelect">Show usage for:</label>
+            <select id="daysSelect" onchange="loadData()">
+                <option value="7" selected>Last 7 days</option>
+                <option value="14">Last 14 days</option>
+                <option value="30">Last 30 days</option>
+                <option value="60">Last 60 days</option>
+                <option value="90">Last 90 days</option>
+            </select>
+            
+            <button class="btn btn-primary" onclick="refreshData()">
+                🔄 Refresh from API
+            </button>
+            
+            <button class="btn btn-secondary" onclick="exportData()">
+                📥 Export JSON
+            </button>
+        </div>
+        
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Loading usage data...</p>
+        </div>
+        
+        <div class="stats-grid" id="statsGrid">
+            <div class="stat-card">
+                <h3>Total Tokens</h3>
+                <div class="stat-value" id="totalTokens">--</div>
+            </div>
+            <div class="stat-card">
+                <h3>Total Requests</h3>
+                <div class="stat-value" id="totalRequests">--</div>
+            </div>
+            <div class="stat-card">
+                <h3>Input Tokens</h3>
+                <div class="stat-value" id="inputTokens">--</div>
+            </div>
+            <div class="stat-card">
+                <h3>Output Tokens</h3>
+                <div class="stat-value" id="outputTokens">--</div>
+            </div>
+        </div>
+        
+        <div class="chart-container">
+            <h2>📊 Daily Token Usage</h2>
+            <div class="chart-wrapper">
+                <canvas id="usageChart"></canvas>
+            </div>
+        </div>
+        
+        <div class="chart-container">
+            <h2>📈 Daily Request Count</h2>
+            <div class="chart-wrapper">
+                <canvas id="requestChart"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/static/app.js"></script>
+</body>
+</html>
